@@ -7,7 +7,7 @@ Le projet a été réalisé dans un cadre pédagogique, en **travail collaborati
 ---
 
 ## 📌 Référentiel
-**[2023] Développeur Web et Web Mobile**
+**[2026] Développeur Web et Web Mobile**
 
 ---
 
