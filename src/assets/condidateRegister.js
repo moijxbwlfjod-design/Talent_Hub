@@ -31,7 +31,7 @@ collectCondidateData();
 
 async function condidateRegister(condidateData) {
   try {
-    const res = await fetch("Back-end/services/registerService", {
+    const res = await fetch("/../../CondidateController.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
