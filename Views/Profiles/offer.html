@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <title>Offers with Categories & Tags</title>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- NAVBAR -->
+    <nav class="h-[60px] bg-blue-500 flex items-center px-8 text-white">
+        <h1 class="text-xl font-bold">Mon CV - Offers</h1>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="max-w-5xl mx-auto p-6">
+
+        <!-- ADD BUTTON -->
+        <button onclick="openModal()"
+            class="mb-6 bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">
+            ➕ Add New Offer
+        </button>
+
+        <!-- OFFERS LIST -->
+        <section id="offersList" class="space-y-4"></section>
+
+    </main>
+
+    <!-- MODAL -->
+    <div id="modal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md">
+
+            <h2 id="modalTitle" class="text-xl font-bold mb-4">Add Offer</h2>
+
+            <!-- TITLE -->
+            <input id="offerTitle"
+                type="text"
+                placeholder="Offer title"
+                class="w-full mb-3 px-4 py-2 border rounded">
+
+            <!-- CATEGORY -->
+            <select id="offerCategory"
+                class="w-full mb-3 px-4 py-2 border rounded">
+                <option value="">Select category</option>
+                <option>Web Development</option>
+                <option>Design</option>
+                <option>Marketing</option>
+                <option>IT Support</option>
+            </select>
+
+            <!-- DESCRIPTION -->
+            <textarea id="offerDesc"
+                placeholder="Offer description"
+                class="w-full mb-3 px-4 py-2 border rounded"></textarea>
+
+            <!-- TAGS -->
+            <div class="mb-3">
+                <div class="flex gap-2">
+                    <input id="tagInput"
+                        type="text"
+                        placeholder="Add a tag"
+                        class="flex-1 px-4 py-2 border rounded">
+                    <button type="button"
+                        onclick="addTag()"
+                        class="bg-blue-500 text-white px-4 rounded">
+                        Add
+                    </button>
+                </div>
+
+                <div id="tagsContainer" class="flex flex-wrap gap-2 mt-2"></div>
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="flex justify-end gap-2">
+                <button onclick="closeModal()"
+                    class="px-4 py-2 border rounded">
+                    Cancel
+                </button>
+                <button onclick="saveOffer()"
+                    class="px-4 py-2 bg-blue-500 text-white rounded">
+                    Save
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="mt-12 text-center text-sm text-gray-500 py-6">
+        © 2026 Mohamed Sehrane
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        let offers = [];
+        let editIndex = null;
+        let currentTags = [];
+
+        const modal = document.getElementById("modal");
+        const offersList = document.getElementById("offersList");
+
+        const offerTitle = document.getElementById("offerTitle");
+        const offerDesc = document.getElementById("offerDesc");
+        const offerCategory = document.getElementById("offerCategory");
+        const tagInput = document.getElementById("tagInput");
+        const tagsContainer = document.getElementById("tagsContainer");
+        const modalTitle = document.getElementById("modalTitle");
+
+        function openModal(index = null) {
+            modal.classList.remove("hidden");
+            editIndex = index;
+
+            if (index !== null) {
+                modalTitle.innerText = "Update Offer";
+                const offer = offers[index];
+
+                offerTitle.value = offer.title;
+                offerDesc.value = offer.desc;
+                offerCategory.value = offer.category;
+
+                currentTags = [...offer.tags];
+            } else {
+                modalTitle.innerText = "Add Offer";
+                offerTitle.value = "";
+                offerDesc.value = "";
+                offerCategory.value = "";
+                currentTags = [];
+            }
+
+            renderTags();
+        }
+
+        function closeModal() {
+            modal.classList.add("hidden");
+        }
+
+        function addTag() {
+            const tag = tagInput.value.trim();
+            if (tag && !currentTags.includes(tag)) {
+                currentTags.push(tag);
+                tagInput.value = "";
+                renderTags();
+            }
+        }
+
+        function removeTag(index) {
+            currentTags.splice(index, 1);
+            renderTags();
+        }
+
+        function renderTags() {
+            tagsContainer.innerHTML = "";
+            currentTags.forEach((tag, index) => {
+                tagsContainer.innerHTML += `
+                    <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm flex items-center gap-1">
+                        ${tag}
+                        <button onclick="removeTag(${index})">×</button>
+                    </span>
+                `;
+            });
+        }
+
+        function saveOffer() {
+            const title = offerTitle.value.trim();
+            const desc = offerDesc.value.trim();
+            const category = offerCategory.value;
+
+            if (!title || !desc || !category) {
+                alert("Please fill all fields");
+                return;
+            }
+
+            const offerData = {
+                title,
+                desc,
+                category,
+                tags: [...currentTags]
+            };
+
+            if (editIndex !== null) {
+                offers[editIndex] = offerData;
+            } else {
+                offers.push(offerData);
+            }
+
+            closeModal();
+            renderOffers();
+        }
+
+        function deleteOffer(index) {
+            offers.splice(index, 1);
+            renderOffers();
+        }
+
+        function renderOffers() {
+            offersList.innerHTML = "";
+
+            offers.forEach((offer, index) => {
+                offersList.innerHTML += `
+                    <div class="bg-white p-6 rounded shadow space-y-2">
+                        <div class="flex justify-between">
+                            <div>
+                                <h3 class="text-lg font-bold">${offer.title}</h3>
+                                <span class="text-sm text-blue-500">${offer.category}</span>
+                                <p class="text-gray-600 mt-1">${offer.desc}</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="deleteOffer(${index})"
+                                    class="bg-red-500 text-white px-3 py-1 rounded">
+                                    Cancel
+                                </button>
+                                <button onclick="openModal(${index})"
+                                    class="bg-green-500 text-white px-3 py-1 rounded">
+                                    Update
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2">
+                            ${offer.tags.map(tag =>
+                                `<span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs">${tag}</span>`
+                            ).join("")}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+    </script>
+
+</body>
+</html>
