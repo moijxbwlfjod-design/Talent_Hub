@@ -23,15 +23,6 @@ CREATE TABLE candidats(
     id INT PRIMARY KEY,
     curriculum_vitae binary,
 );
-
-CREATE Table recuiters(
-    id INT PRIMARY KEY ,
-    company_name VARCHAR(50) NOT NULL,
-    email_pro VARCHAR(100) NOT NULL,
-    city VARCHAR(25) NOT NULL,
-    FOREIGN KEY (id) REFERENCES users(id),
-);
-
 CREATE TABLE tags(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(20) NOT NULL UNIQUE,
@@ -39,7 +30,12 @@ CREATE TABLE tags(
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP NULL
 );
-
+CREATE TABLE condidat_tag(
+    candidat_id int NOT NULL,
+    tag_id INT NOT NULL,
+    Foreign Key (candidat_id) REFERENCES candidats(id)
+    Foreign Key (tag_id) REFERENCES tags(id),
+);
 CREATE TABLE categoris(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL UNIQUE,
@@ -49,7 +45,6 @@ CREATE TABLE categoris(
     deleted_at TIMESTAMP NULL,
     Foreign Key (tag_id) REFERENCES tags(id)
 );
-
 CREATE TABLE offers(
  id INT PRIMARY KEY AUTO_INCREMENT ,
  title VARCHAR(100) NOT NULL,
@@ -67,13 +62,6 @@ CREATE TABLE offers_tags(
     offer_id INT NOT NULL,
     FOREIGN KEY (tag_id) REFERENCES tags(id),
     FOREIGN key (offer_id)  REFERENCES offers(id)
-);
-
-CREATE TABLE condidat_tag(
-    candidat_id int NOT NULL,
-    tag_id INT NOT NULL,
-    Foreign Key (candidat_id) REFERENCES candidats(id)
-    Foreign Key (tag_id) REFERENCES tags(id),
 );
 
 CREATE TABLE applications(
