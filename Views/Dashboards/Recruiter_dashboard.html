@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Dashboard - Talent HUB</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .sidebar-gradient {
+            background: linear-gradient(180deg, #0a1929 0%, #0f2644 100%);
+        }
+    </style>
+</head>
+<body class="bg-[#f5f7fa] text-[#1a2332]">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar-gradient w-72 h-screen fixed left-0 top-0 overflow-y-auto border-r border-white/10 z-50 transition-all duration-300 hidden md:block">
+        <div class="p-6 border-b border-white/10">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-[#0052cc] rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/20">TH</div>
+                <span class="text-white font-bold text-xl tracking-tight">Talent HUB</span>
+            </div>
+        </div>
+        
+        <nav class="p-4 space-y-2">
+            <div>
+                <p class="text-[10px] text-slate-500 font-bold px-4 mb-4 uppercase tracking-[0.2em]">Main Menu</p>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-blue-500 bg-blue-500/10 rounded-xl transition-all group">
+                    <i class="fas fa-chart-line w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all group">
+                    <i class="fas fa-briefcase w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Jobs Posted</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all group">
+                    <i class="fas fa-file-alt w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Applications</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all group">
+                    <i class="fas fa-users w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Candidates</span>
+                </a>
+            </div>
+
+            <div class="pt-6">
+                <p class="text-[10px] text-slate-500 font-bold px-4 mb-4 uppercase tracking-[0.2em]">Settings</p>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all group">
+                    <i class="fas fa-cog w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Settings</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all group">
+                    <i class="fas fa-bell w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Notifications</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all group">
+                    <i class="fas fa-credit-card w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Billing</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="md:ml-72 min-h-screen">
+        <!-- TOPBAR -->
+        <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 h-[70px] px-8 flex justify-between items-center">
+            <div class="flex-1 max-w-md">
+                <div class="relative group">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors"></i>
+                    <input type="text" placeholder="Search jobs, candidates..." class="w-full pl-10 pr-4 py-2.5 bg-slate-100 border-transparent border focus:border-blue-500 focus:bg-white rounded-xl outline-none text-sm transition-all">
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 ml-4">
+                <button class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 hover:text-blue-600 transition-all border border-slate-200">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 hover:text-blue-600 transition-all border border-slate-200">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#0052cc] to-[#0066ff] flex items-center justify-center text-white font-bold text-sm cursor-pointer shadow-md">JD</div>
+            </div>
+        </header>
+        
+        <div class="p-8">
+            <!-- PAGE HEADER -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-[#1a2332] tracking-tight">Dashboard</h1>
+                    <p class="text-slate-500 mt-1">Welcome back! Here's what's happening with your jobs today.</p>
+                </div>
+                <button class="bg-[#0052cc] text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-[#0043a8] transition-all transform hover:-translate-y-1 shadow-lg shadow-blue-500/20 active:scale-95">
+                    <i class="fas fa-plus"></i>
+                    Post New Job
+                </button>
+            </div>
+            
+            <!-- STATS SECTION -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-500 transition-all group hover:shadow-xl hover:shadow-blue-500/5">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 text-2xl group-hover:bg-blue-600 group-hover:text-white transition-all">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Jobs</p>
+                            <p class="text-2xl font-bold text-slate-900">12</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-500 transition-all group hover:shadow-xl hover:shadow-blue-500/5">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 text-2xl group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Applications</p>
+                            <p class="text-2xl font-bold text-slate-900">284</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-500 transition-all group hover:shadow-xl hover:shadow-blue-500/5">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 text-2xl group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Hired</p>
+                            <p class="text-2xl font-bold text-slate-900">18</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-500 transition-all group hover:shadow-xl hover:shadow-blue-500/5">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 text-2xl group-hover:bg-amber-600 group-hover:text-white transition-all">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Views</p>
+                            <p class="text-2xl font-bold text-slate-900">1,245</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TWO COLUMN LAYOUT -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- RECENT JOBS -->
+                <section>
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold text-[#1a2332]">Recent Jobs</h2>
+                        <a href="#" class="text-blue-600 font-bold text-sm flex items-center gap-1 group">
+                            View All <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- Job Card 1 -->
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-300 transition-all hover:shadow-lg">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="font-bold text-lg text-slate-900">Senior Frontend Developer</h3>
+                                    <p class="text-slate-500 text-sm">TechFlow Systems</p>
+                                </div>
+                                <span class="px-3 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-emerald-100">Active</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-slate-50 text-slate-600 text-xs font-medium rounded-lg border border-slate-100">React</span>
+                                <span class="px-3 py-1 bg-slate-50 text-slate-600 text-xs font-medium rounded-lg border border-slate-100">TypeScript</span>
+                                <span class="px-3 py-1 bg-slate-50 text-slate-600 text-xs font-medium rounded-lg border border-slate-100">Remote</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-4 border-t border-slate-100 text-slate-500 text-sm">
+                                <span class="flex items-center gap-2"><i class="fas fa-file-alt text-blue-500"></i> 42 Applications</span>
+                                <span class="flex items-center gap-2"><i class="fas fa-calendar text-slate-400"></i> Posted 3d ago</span>
+                            </div>
+                        </div>
+
+                        <!-- Job Card 2 -->
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-300 transition-all hover:shadow-lg">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="font-bold text-lg text-slate-900">Product Designer</h3>
+                                    <p class="text-slate-500 text-sm">Creative Studio Inc</p>
+                                </div>
+                                <span class="px-3 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-emerald-100">Active</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-slate-50 text-slate-600 text-xs font-medium rounded-lg border border-slate-100">Figma</span>
+                                <span class="px-3 py-1 bg-slate-50 text-slate-600 text-xs font-medium rounded-lg border border-slate-100">UX Design</span>
+                                <span class="px-3 py-1 bg-slate-50 text-slate-600 text-xs font-medium rounded-lg border border-slate-100">Hybrid</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-4 border-t border-slate-100 text-slate-500 text-sm">
+                                <span class="flex items-center gap-2"><i class="fas fa-file-alt text-blue-500"></i> 28 Applications</span>
+                                <span class="flex items-center gap-2"><i class="fas fa-calendar text-slate-400"></i> Posted 1w ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- RECENT APPLICATIONS -->
+                <section>
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold text-[#1a2332]">Recent Applications</h2>
+                        <a href="#" class="text-blue-600 font-bold text-sm flex items-center gap-1 group">
+                            View All <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200">
+                                        <th class="p-4 text-xs font-bold text-slate-500 uppercase">Candidate</th>
+                                        <th class="p-4 text-xs font-bold text-slate-500 uppercase">Position</th>
+                                        <th class="p-4 text-xs font-bold text-slate-500 uppercase">Status</th>
+                                        <th class="p-4 text-xs font-bold text-slate-500 uppercase">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <tr class="hover:bg-slate-50 transition-colors group">
+                                        <td class="p-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs ring-2 ring-white">AK</div>
+                                                <div>
+                                                    <div class="font-bold text-slate-900 border-none">Sofian isam</div>
+                                                    <div class="text-[11px] text-slate-400">sofian@l3yan.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="p-4 text-sm font-medium text-slate-600">Frontend Dev</td>
+                                        <td class="p-4">
+                                            <span class="px-2.5 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded-lg uppercase">Shortlisted</span>
+                                        </td>
+                                        <td class="p-4">
+                                            <button class="p-2 space-x-1.5 flex items-center bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all text-[11px] font-bold">
+                                                <i class="fas fa-eye"></i>
+                                                <span>View</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50 transition-colors group">
+                                        <td class="p-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs ring-2 ring-white">SM</div>
+                                                <div>
+                                                    <div class="font-bold text-slate-900 border-none">Sarah Sehran</div>
+                                                    <div class="text-[11px] text-slate-400">sarah.m@ucode.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="p-4 text-sm font-medium text-slate-600">UI Designer</td>
+                                        <td class="p-4">
+                                            <span class="px-2.5 py-1 bg-amber-50 text-amber-600 text-[10px] font-bold rounded-lg uppercase">Reviewing</span>
+                                        </td>
+                                        <td class="p-4">
+                                            <button class="p-2 space-x-1.5 flex items-center bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all text-[11px] font-bold">
+                                                <i class="fas fa-eye"></i>
+                                                <span>View</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50 transition-colors group">
+                                        <td class="p-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-xs ring-2 ring-white">JP</div>
+                                                <div>
+                                                    <div class="font-bold text-slate-900 border-none">Jamam ali</div>
+                                                    <div class="text-[11px] text-slate-400">kamal.jamal@email.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="p-4 text-sm font-medium text-slate-600">Data Scientist</td>
+                                        <td class="p-4">
+                                            <span class="px-2.5 py-1 bg-blue-50 text-blue-600 text-[10px] font-bold rounded-lg uppercase">Applied</span>
+                                        </td>
+                                        <td class="p-4">
+                                            <button class="p-2 space-x-1.5 flex items-center bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all text-[11px] font-bold">
+                                                <i class="fas fa-eye"></i>
+                                                <span>View</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
