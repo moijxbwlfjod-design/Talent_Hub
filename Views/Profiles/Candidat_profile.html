@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Candidate Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="group bg-blue-600 text-white 
+                  w-[80px] hover:w-[220px] 
+                  transition-all duration-300
+                  flex flex-col justify-between p-4">
+
+        <nav class="space-y-3">
+            <a class="flex gap-3 p-2 rounded hover:bg-blue-500" href="#">
+                🏠 <span class="hidden group-hover:block">Home</span>
+            </a>
+            <a class="flex gap-3 p-2 rounded hover:bg-blue-500" href="#">
+                🔍 <span class="hidden group-hover:block">Search Offers</span>
+            </a>
+            <a class="flex gap-3 p-2 rounded hover:bg-blue-500" href="#">
+                📬 <span class="hidden group-hover:block">Applications</span>
+            </a>
+        </nav>
+
+        <div class="text-blue-100 hidden group-hover:block text-sm">
+            Candidate Panel
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 space-y-6">
+
+        <!-- Header -->
+        <header class="bg-white p-5 rounded-lg shadow flex justify-between items-center">
+            <div>
+                <h1 class="text-xl font-bold text-blue-600">
+                    Welcome, Mohamed 👋
+                </h1>
+                <p class="text-gray-200">
+                    Find your next opportunity
+                </p>
+            </div>
+
+            <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Edit Profile
+            </button>
+        </header>
+
+        <!-- Search Offers -->
+        <section class="bg-white p-5 rounded-lg shadow">
+            <h2 class="text-lg font-semibold text-blue-600 mb-4">
+                Search for Offers
+            </h2>
+
+            <div class="flex gap-3">
+                <input
+                    type="text"
+                    placeholder="Search by title or skill..."
+                    class="flex-1 p-3 rounded border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button class="bg-blue-500 text-white px-6 rounded hover:bg-blue-600">
+                    Search
+                </button>
+            </div>
+        </section>
+
+        <!-- Recommended Offers -->
+        <section class="bg-white p-5 rounded-lg shadow">
+            <h2 class="text-lg font-semibold text-blue-600 mb-4">
+                Recommended Offers
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-4">
+
+                <div class="border border-gray-200 p-4 rounded">
+                    <h3 class="font-semibold text-blue-600">Frontend Developer</h3>
+                    <p class="text-gray-200 text-sm">React • Tailwind • Remote</p>
+
+                    <button class="mt-3 bg-green-500 text-white px-4 py-2 rounded">
+                        Apply
+                    </button>
+                </div>
+
+                <div class="border border-gray-200 p-4 rounded">
+                    <h3 class="font-semibold text-blue-600">Backend Developer</h3>
+                    <p class="text-gray-200 text-sm">Laravel • MySQL</p>
+
+                    <button class="mt-3 bg-green-500 text-white px-4 py-2 rounded">
+                        Apply
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Applications CRUD -->
+        <section class="bg-white p-5 rounded-lg shadow">
+            <h2 class="text-lg font-semibold text-blue-600 mb-4">
+                My Applications
+            </h2>
+
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="p-3 text-left">Offer</th>
+                        <th class="p-3 text-left">Status</th>
+                        <th class="p-3 text-left">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr class="border-b">
+                        <td class="p-3">Frontend Developer</td>
+                        <td class="p-3 text-blue-500 font-semibold">Pending</td>
+                        <td class="p-3 flex gap-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded">
+                                Edit
+                            </button>
+                            <button class="bg-red-500 text-white px-3 py-1 rounded">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="p-3">Backend Developer</td>
+                        <td class="p-3 text-green-500 font-semibold">Accepted</td>
+                        <td class="p-3 flex gap-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded">
+                                View
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="group bg-blue-600 text-white 
+                  w-[80px] hover:w-[220px] 
+                  transition-all duration-300
+                  flex flex-col justify-between p-4">
+
+        <div class="space-y-4">
+
+            <h1 class="text-xl font-bold hidden group-hover:block">
+                Dashboard
+            </h1>
+
+            <nav class="space-y-2">
+
+                <a href="#" class="flex items-center gap-3 p-2 rounded-md
+                                   hover:bg-blue-500 transition">
+                    <span>👤</span>
+                    <span class="hidden group-hover:block">Recruteurs</span>
+                </a>
+
+                <a href="#" class="flex items-center gap-3 p-2 rounded-md
+                                   hover:bg-blue-500 transition">
+                    <span>🧑‍💼</span>
+                    <span class="hidden group-hover:block">Candidats</span>
+                </a>
+
+                <a href="#" class="flex items-center gap-3 p-2 rounded-md
+                                   hover:bg-blue-500 transition">
+                    <span>📄</span>
+                    <span class="hidden group-hover:block">Offers</span>
+                </a>
+
+                <a href="#" class="flex items-center gap-3 p-2 rounded-md
+                                   hover:bg-blue-500 transition">
+                    <span>📬</span>
+                    <span class="hidden group-hover:block">Applications</span>
+                </a>
+
+            </nav>
+        </div>
+
+        <div class="text-sm text-blue-100 hidden group-hover:block">
+            © 2026
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+
+        <!-- Header -->
+        <header class="bg-white p-4 rounded-lg shadow mb-6 flex justify-between items-center">
+            <h2 class="text-xl font-semibold text-blue-600">
+                Dashboard Overview
+            </h2>
+
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                New Action
+            </button>
+        </header>
+
+        <!-- Stats -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+
+            <div class="bg-white p-5 rounded-lg shadow border-l-4 border-blue-500">
+                <p class="text-gray-200 text-sm">Recruteurs</p>
+                <h3 class="text-2xl font-bold text-blue-600">124</h3>
+            </div>
+
+            <div class="bg-white p-5 rounded-lg shadow border-l-4 border-green-500">
+                <p class="text-gray-200 text-sm">Candidats</p>
+                <h3 class="text-2xl font-bold text-green-500">1,280</h3>
+            </div>
+
+            <div class="bg-white p-5 rounded-lg shadow border-l-4 border-blue-600">
+                <p class="text-gray-200 text-sm">Offers</p>
+                <h3 class="text-2xl font-bold text-blue-600">86</h3>
+            </div>
+
+            <div class="bg-white p-5 rounded-lg shadow border-l-4 border-red-500">
+                <p class="text-gray-200 text-sm">Applications</p>
+                <h3 class="text-2xl font-bold text-red-500">342</h3>
+            </div>
+
+        </section>
+
+        <!-- Table -->
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-semibold text-blue-600 mb-4">
+                Recent Applications
+            </h3>
+
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="p-3">Candidate</th>
+                        <th class="p-3">Offer</th>
+                        <th class="p-3">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b">
+                        <td class="p-3">Ahmed</td>
+                        <td class="p-3">Frontend Dev</td>
+                        <td class="p-3 text-green-500 font-semibold">Accepted</td>
+                    </tr>
+                    <tr class="border-b">
+                        <td class="p-3">Sara</td>
+                        <td class="p-3">Backend Dev</td>
+                        <td class="p-3 text-blue-500 font-semibold">Pending</td>
+                    </tr>
+                    <tr>
+                        <td class="p-3">Youssef</td>
+                        <td class="p-3">UI Designer</td>
+                        <td class="p-3 text-red-500 font-semibold">Rejected</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+</body>
+</html>
