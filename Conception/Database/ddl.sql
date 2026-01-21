@@ -1,10 +1,7 @@
 CREATE TABLE roles(
     id INT AUTO_INCREMENT PRIMARY KEY,
     role ENUM('candidat','recruiter','admin') not NULL 
-
 );
-
-
 CREATE Table users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(50) NOT NULL,
@@ -13,12 +10,11 @@ CREATE Table users (
     phone VARCHAR(20) NOT NULL,
     image Binary,
     role_id INT NOT NULL,
-    update_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+    update_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (role_id) REFERENCES roles(id)
 
 );
-
 CREATE TABLE candidats(
     id INT PRIMARY KEY,
     curriculum_vitae binary,
@@ -33,10 +29,10 @@ CREATE TABLE tags(
 CREATE TABLE condidat_tag(
     candidat_id int NOT NULL,
     tag_id INT NOT NULL,
-    Foreign Key (candidat_id) REFERENCES candidats(id)
+    Foreign Key (candidat_id) REFERENCES candidats(id),
     Foreign Key (tag_id) REFERENCES tags(id),
 );
-CREATE TABLE categoris(
+CREATE TABLE categoreis(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL UNIQUE,
     tag_id INT NOT NULL,
@@ -65,9 +61,9 @@ CREATE TABLE offers_tags(
 );
 
 CREATE TABLE applications(
- id INT PRIMARY KEY AUTO_INCREMENT ,
+ id INT PRIMARY KEY AUTO_INCREMENT,
  offer_id INT NOT NULL,
- condidate_id INT NOT NULL,
+ candidate_id INT NOT NULL,
  FOREIGN KEY (offer_id) REFERENCES offers(id),
- FOREIGN KEY (condidate_id) REFERENCES conditate(id)
+ FOREIGN KEY (candidate_id) REFERENCES canditate(id)
 );

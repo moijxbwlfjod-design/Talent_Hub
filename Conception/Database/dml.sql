@@ -47,12 +47,11 @@ INSERT INTO offers (title, description, recuiter_id, category_id) VALUES
 
 
 INSERT INTO offers_tags (offer_id, tag_id) VALUES
-(1, 1), -- PHP
-(1, 2), -- Laravel
-(1, 5), -- MySQL
-(2, 4), -- React
-(2, 3); -- JavaScript
-
+(1, 1),
+(1, 2),
+(1, 5),
+(2, 4),
+(2, 3);
 INSERT INTO condidat_tag (candidat_id, tag_id) VALUES
 (1, 1),
 (1, 2),
