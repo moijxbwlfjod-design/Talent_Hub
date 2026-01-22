@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Offers - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-gradient {
+            background: linear-gradient(180deg, #111827 0%, #1f2937 100%);
+        }
+    </style>
+</head>
+
+<body class="bg-[#f8fafc] text-[#1e293b]">
+
+    <!-- SIDEBAR -->
+    <aside
+        class="sidebar-gradient w-72 h-screen fixed left-0 top-0 overflow-y-auto border-r border-slate-800 z-50 transition-all duration-300 hidden md:block">
+        <div class="p-6 border-b border-slate-800">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-500/20">
+                    TH</div>
+                <span class="text-white font-bold text-xl tracking-tight">Talent HUB</span>
+            </div>
+        </div>
+
+        <nav class="p-4 space-y-2">
+            <div>
+                <p class="text-[10px] text-slate-500 font-bold px-4 mb-4 uppercase tracking-[0.2em]">Management</p>
+
+                <a href="admin_dashboard.html"
+                    class="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-400 hover:bg-indigo-400/10 rounded-xl transition-all group text-left border border-transparent">
+                    <i class="fas fa-columns w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+
+                <a href="manage_users.html"
+                    class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-400 hover:bg-indigo-400/10 rounded-xl transition-all group">
+                    <i class="fas fa-users w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">User Accounts</span>
+                </a>
+
+                <a href="manage_companies.html"
+                    class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-400 hover:bg-indigo-400/10 rounded-xl transition-all group">
+                    <i class="fas fa-building w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Companies</span>
+                </a>
+
+                <a href="admin_offers.html"
+                    class="flex items-center gap-3 px-4 py-3 text-indigo-400 bg-indigo-400/10 rounded-xl transition-all group">
+                    <i class="fas fa-briefcase w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Job Offers</span>
+                </a>
+
+                <a href="job_approvals.html"
+                    class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-400 hover:bg-indigo-400/10 rounded-xl transition-all group">
+                    <i class="fas fa-check-circle w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Job Approvals</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="md:ml-72 min-h-screen">
+        <!-- TOPBAR -->
+        <header
+            class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 h-[70px] px-8 flex justify-between items-center">
+            <div>
+                <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Offer Management</h2>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <div
+                    class="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-600 rounded-lg text-xs font-bold border border-emerald-100">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    System Live
+                </div>
+                <button
+                    class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 hover:text-indigo-600 transition-all border border-slate-200 relative">
+                    <i class="fas fa-envelope"></i>
+                    <span
+                        class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] flex items-center justify-center rounded-full font-bold">5</span>
+                </button>
+                <div class="flex items-center gap-3 pl-4 border-l border-slate-200">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-sm font-bold text-slate-900 leading-none">Admin User</p>
+                        <p class="text-[10px] text-slate-500 mt-1 uppercase font-semibold">Super Admin</p>
+                    </div>
+                    <div
+                        class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-bold text-sm shadow-lg">
+                        AU</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="p-8">
+            <!-- PAGE HEADER -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Job Offers</h1>
+                    <p class="text-slate-500 mt-1">Manage, edit, and track all job offers across the platform.</p>
+                </div>
+                <div class="flex gap-3">
+                    <button
+                        class="bg-white text-slate-700 px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-slate-50 transition-all border border-slate-200 shadow-sm active:scale-95">
+                        <i class="fas fa-filter"></i>
+                        Filter
+                    </button>
+                    <button
+                        class="bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/20 active:scale-95">
+                        <i class="fas fa-plus"></i>
+                        New Job Offer
+                    </button>
+                </div>
+            </div>
+
+            <!-- STATS CARDS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 text-xl">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <span class="text-emerald-500 text-xs font-bold flex items-center gap-1">
+                            <i class="fas fa-check"></i> Active
+                        </span>
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Active Jobs</p>
+                    <p class="text-2xl font-bold text-slate-900">1,248</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 text-xl">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <span class="text-slate-400 text-xs font-bold flex items-center gap-1">
+                            Closing Soon
+                        </span>
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Expiring This Week</p>
+                    <p class="text-2xl font-bold text-slate-900">42</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 text-xl">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <span class="text-emerald-500 text-xs font-bold flex items-center gap-1">
+                            <i class="fas fa-arrow-up"></i> 5%
+                        </span>
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">New Applications</p>
+                    <p class="text-2xl font-bold text-slate-900">3,892</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-slate-600 text-xl">
+                            <i class="fas fa-archive"></i>
+                        </div>
+                        <span class="text-slate-400 text-xs font-bold flex items-center gap-1">
+                            Total
+                        </span>
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Archived Jobs</p>
+                    <p class="text-2xl font-bold text-slate-900">8,501</p>
+                </div>
+            </div>
+
+            <!-- OFFERS TABLE -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div
+                    class="p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-center bg-slate-50/50 gap-4">
+                    <h2 class="text-lg font-bold text-slate-900">All Job Offers</h2>
+                    <div class="flex gap-2 w-full sm:w-auto">
+                        <div class="relative w-full sm:w-64">
+                            <i
+                                class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input type="text" placeholder="Search by title, company..."
+                                class="w-full pl-9 pr-3 py-2 text-xs bg-white border border-slate-200 rounded-lg outline-none focus:border-indigo-500 transition-all">
+                        </div>
+                        <button
+                            class="px-3 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-700 transition-all">Search</button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr
+                                class="text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                                <th class="p-4">Job Title</th>
+                                <th class="p-4">Company</th>
+                                <th class="p-4">Posted Date</th>
+                                <th class="p-4">Applications</th>
+                                <th class="p-4 text-center">Status</th>
+                                <th class="p-4 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <!-- Job Item 1 -->
+                            <tr class="hover:bg-slate-50/80 transition-all text-sm group">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 bg-indigo-100/50 rounded-lg flex items-center justify-center text-indigo-600 font-bold text-lg">
+                                            <i class="fab fa-react"></i>
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                                                Senior React Developer</p>
+                                            <p class="text-xs text-slate-500 font-medium">Remote • Full-time</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-2">
+                                        <div
+                                            class="w-6 h-6 bg-slate-200 rounded-full flex items-center justify-center text-[10px] font-bold">
+                                            T</div>
+                                        <span class="font-semibold text-slate-700 text-xs">TechCorp Inc.</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-slate-500 font-medium text-xs">Oct 24, 2023</td>
+                                <td class="p-4">
+                                    <div class="flex -space-x-2">
+                                        <div class="w-7 h-7 rounded-full border-2 border-white bg-slate-200"></div>
+                                        <div class="w-7 h-7 rounded-full border-2 border-white bg-slate-300"></div>
+                                        <div
+                                            class="w-7 h-7 rounded-full border-2 border-white bg-slate-400 flex items-center justify-center text-[10px] text-white font-bold">
+                                            +12</div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-center">
+                                    <span
+                                        class="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-bold rounded-full uppercase tracking-tighter">Active</span>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button
+                                        class="w-8 h-8 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all"><i
+                                            class="fas fa-eye"></i></button>
+                                    <button
+                                        class="w-8 h-8 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+
+                            <!-- Job Item 2 -->
+                            <tr class="hover:bg-slate-50/80 transition-all text-sm group">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 bg-amber-100/50 rounded-lg flex items-center justify-center text-amber-600 font-bold text-lg">
+                                            <i class="fab fa-node-js"></i>
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                                                Backend Engineer</p>
+                                            <p class="text-xs text-slate-500 font-medium">New York • Hybrid</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-2">
+                                        <div
+                                            class="w-6 h-6 bg-slate-200 rounded-full flex items-center justify-center text-[10px] font-bold">
+                                            F</div>
+                                        <span class="font-semibold text-slate-700 text-xs">FinTech Sol.</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-slate-500 font-medium text-xs">Oct 22, 2023</td>
+                                <td class="p-4">
+                                    <div class="flex -space-x-2">
+                                        <div class="w-7 h-7 rounded-full border-2 border-white bg-slate-200"></div>
+                                        <div
+                                            class="w-7 h-7 rounded-full border-2 border-white bg-slate-400 flex items-center justify-center text-[10px] text-white font-bold">
+                                            +5</div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-center">
+                                    <span
+                                        class="px-2 py-0.5 bg-amber-100 text-amber-700 text-[10px] font-bold rounded-full uppercase tracking-tighter">Paused</span>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button
+                                        class="w-8 h-8 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all"><i
+                                            class="fas fa-eye"></i></button>
+                                    <button
+                                        class="w-8 h-8 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+
+                            <!-- Job Item 3 -->
+                            <tr class="hover:bg-slate-50/80 transition-all text-sm group">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 bg-blue-100/50 rounded-lg flex items-center justify-center text-blue-600 font-bold text-lg">
+                                            <i class="fas fa-paint-brush"></i>
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                                                UX/UI Designer</p>
+                                            <p class="text-xs text-slate-500 font-medium">London • On-site</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-2">
+                                        <div
+                                            class="w-6 h-6 bg-slate-200 rounded-full flex items-center justify-center text-[10px] font-bold">
+                                            C</div>
+                                        <span class="font-semibold text-slate-700 text-xs">Creative Agency</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-slate-500 font-medium text-xs">Sep 15, 2023</td>
+                                <td class="p-4">
+                                    <span class="text-xs text-slate-400">0 applicants</span>
+                                </td>
+                                <td class="p-4 text-center">
+                                    <span
+                                        class="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-full uppercase tracking-tighter">Draft</span>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button
+                                        class="w-8 h-8 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all"><i
+                                            class="fas fa-eye"></i></button>
+                                    <button
+                                        class="w-8 h-8 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <div class="p-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-xs text-slate-500 font-medium">Showing <span
+                            class="font-bold text-slate-900">1-3</span> of <span
+                            class="font-bold text-slate-900">1,248</span></span>
+                    <div class="flex gap-2">
+                        <button
+                            class="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-500 hover:bg-slate-50 transition-all">Prev</button>
+                        <button
+                            class="px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-bold shadow-lg shadow-indigo-500/20">1</button>
+                        <button
+                            class="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-500 hover:bg-slate-50 transition-all">2</button>
+                        <button
+                            class="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-500 hover:bg-slate-50 transition-all">3</button>
+                        <button
+                            class="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-500 hover:bg-slate-50 transition-all">Next</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+
+</html>
