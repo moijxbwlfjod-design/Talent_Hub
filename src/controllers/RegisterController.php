@@ -3,11 +3,33 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 require_once __DIR__ . "/../Models/services/RecruterService.php";
+require_once __DIR__ . "/../Models/Classes/Recruteur.php";
 
 class RegisterController{
     public function RegisterRecruter(){
         if(isset($_POST) && isset($_POST["Recruter-Register"])){
-            print_r($_POST);
+            $fullName = $_POST["fullName"];
+            $profileImg = $_POST["profileImg"];
+            $email = $_POST["email"];
+            $city = $_POST["city"];
+            $companyName = $_POST["company_name"];
+            $emailPro = $_POST["emailPro"];
+            $phone = $_POST["phone"];
+            $password = $_POST["password"];
+            $confirmPass = $_POST["confirmPassword"];
+            if(!empty($fullName) && !empty($profileImg) && !empty($email) && !empty($city) && !empty($companyName) && !empty($emailPro) && !empty($phone) && !empty($password) && !empty($confirmPass) && $password === $confirmPass && strlen($password) >= 8 && filter_var($email, FILTER_VALIDATE_EMAIL) && filter_var($emailPro, FILTER_VALIDATE_EMAIL)){
+                $role_id = 2;
+                $recruteur = new Recruteur($fullName, $email, password_hash($password, PASSWORD_DEFAULT), $phone, $image, $role_id, $emailPro, $companyName, $city);
+                $RecruterServ = new RecruterService();
+                if($RecruterServ->insertRecruter($recruteur)){
+                    header("location: ../Views/Profiles/recruiterProfile.html");
+                    exit;
+                }
+                else{
+                    header("location: ../Views/Auth/recruiter_Register.html");
+                    exit;
+                }
+            }
         } else{
             //header("location: ../../Views/Home.html");
             echo "khdam";

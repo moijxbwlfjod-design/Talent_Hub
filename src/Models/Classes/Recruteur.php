@@ -7,7 +7,7 @@ private $email_pro;
 private $city;
 
 
-public function __construct($id, $name, $email, $password, $phone, $image, $role_id, $email_pro, $company_name,$city)
+public function __construct($name, $email, $password, $phone, $image, $role_id, $email_pro, $company_name,$city, $id=null)
 {
     return parent::__construct($id, $name, $email, $password, $phone, $image, $role_id);
     $this->email_pro = $email_pro;
