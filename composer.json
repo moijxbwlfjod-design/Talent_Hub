@@ -1,10 +1,5 @@
 {
-    "name": "aziz/talenthub",
-    "description": "TalentHub",
-    "type": "project",
-    "require": {
-        "vlucas/phpdotenv": "^5.6"
-    },
+    "name": "aziz/tanlent-hub",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
@@ -15,5 +10,6 @@
             "name": "aziz-boujaada",
             "email": "azizboujaada87@gmail.com"
         }
-    ]
+    ],
+    "require": {}
 }
