@@ -21,8 +21,6 @@ class CondidateService
     if (!is_dir($imageDir)) mkdir($imageDir, 0775, true);
     if (!is_dir($resumeDir)) mkdir($resumeDir, 0775, true);
 
-    if (is_dir($imageDir)) rmdir($imageDir, 0775, true);
-    if (is_dir($resumeDir)) rmdir($resumeDir, 0775, true);
 
     $allowedImages = ['image/jpeg', 'image/png', 'image/jpg'];
     if (!in_array($image['type'], $allowedImages)) {
@@ -63,6 +61,12 @@ class CondidateService
 
     $condidate = new Condidate(null, $full_name, $email, $hashed_password, $phone_number, $path_img, $roleID, $path_resume);
 
-    $condidateRepo->insertCondidat($condidate);
+    $isRegistred = $condidateRepo->insertCondidat($condidate);
+    if(!$isRegistred){
+      return false ;
+    }else{
+      return true ;
+    }
+
   }
 }
