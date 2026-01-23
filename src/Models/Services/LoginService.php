@@ -20,18 +20,21 @@ class LoginService
         $isUserExist = $loginRepo->getUserByEmail($email);
 
         if (!$isUserExist) {
-            die("User noy found");
+           die("Email or Password Incorrect");
         }
         $userId = $isUserExist->getId();
         /// get role name 
         $roleName = $loginRepo->getRoleName($userId);
         $password = password_verify($password, $isUserExist->getPassword());
-
+        
+        var_dump($roleName);
         if ($password) {
             $_SESSION['user_id'] = $isUserExist->getId();
             $_SESSION['user_name'] = $isUserExist->getName();
             $_SESSION['user_role'] = $roleName;
-            print_r($_SESSION);
+           return true ;
+        }else{
+            return false ; 
         }
     }
 }
