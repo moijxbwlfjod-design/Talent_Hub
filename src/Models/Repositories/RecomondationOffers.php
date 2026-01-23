@@ -18,22 +18,22 @@ class RecomondationOffers
         $this->conn = Database::getConnection();
     }
 
-    public function getRecomondationOffers()
+    public function getRecomondationOffers($condidate_id)
     {
 
-        $query = "SELECT o.*
-         FROM offers o 
-         JOIN offers_tags ot ON o.id = ot.offer_id
-         JOIN condidat_tag ct ON ot.tag_id = ct.tag_id
-         WHERE ct.tag_id IN (SELECT tag_id FROM condidat_tag )";
+        $query = "SELECT DISTINCT o.*
+            FROM offers o
+            JOIN offers_tags ot ON o.id = ot.offer_id
+            JOIN condidat_tag ct ON ot.tag_id = ct.tag_id
+            WHERE ct.condidat_id = :condidat_id
+";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+        $stmt->execute([":condidate_id" => $condidate_id]);
         $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $offers;
-        print_r($offers);
+        
     }
     }
     
-    $r = new RecomondationOffers();
-    $r->getRecomondationOffers();
+  

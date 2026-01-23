@@ -23,7 +23,7 @@ class LoginController {
         if(!$user){
             die("Login failed");
         }else{
-            header("Location: /dashboard");
+            header("Location: /../Views/Pages/RecomondationOffers.php");
         }
     }
     }

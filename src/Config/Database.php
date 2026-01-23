@@ -1,6 +1,5 @@
 <?php 
 namespace App\Config ;
-require __DIR__ . '/../../vendor/autoload.php';
 use Dotenv\Dotenv; 
 use PDO ;
 use PDOException;

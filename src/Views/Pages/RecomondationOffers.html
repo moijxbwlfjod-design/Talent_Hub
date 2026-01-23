@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Offers</title>
 </head>
 <body>
-    
+
+<h2>Recommended Offers</h2><br>
+
+<?php if (empty($offers)): ?>
+    <p>no offers</p>
+<?php else: ?>
+    <?php foreach ($offers as $offer): ?>
+        <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px">
+            <h3><?= htmlspecialchars($offer['title']) ?></h3>
+            <p><?= htmlspecialchars($offer['description']) ?></p>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
+
 </body>
 </html>
+
