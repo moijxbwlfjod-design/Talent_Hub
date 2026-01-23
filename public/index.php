@@ -1,18 +1,72 @@
 <?php
+session_start();
+require_once __DIR__ . "/../src/controllers/HomeController.php";
+require_once __DIR__ . "/../src/controllers/LoginController.php";
+require_once __DIR__ . "/../src/controllers/AdminController.php";
 
-// require_once __DIR__ . '/../Router.php';
-// require_once __DIR__ . '/../controllers/HomeController.php';
-// require_once __DIR__ . '/../controllers/LoginController.php';
-// require_once __DIR__ . '/../controllers/RegisterController.php';
-// require_once __DIR__ . '/../controllers/DashboardController.php';
+$path = str_replace("/Talent_Hub","",$_SERVER['REQUEST_URI']);
+$method = $_SERVER['REQUEST_METHOD'];
 
-// $route = new Router();
 
-// $route->get("/", HomeController::class, 'index');
-// $route->get("/login", LoginController::class, 'showLoginForm');
-// $route->post("/login", LoginController::class, 'login');
-// $route->get("/register", RegisterController::class, 'showRegisterForm');
-// $route->post("/register", RegisterController::class, 'register');
-// $route->get("/dashboards", DashboardController::class, 'index');
+$path = strtok($path,"?");
 
-// $route->dispatch();
+if($path==='') $path = '/';
+switch($path){
+    case '/':case'/home':
+        $home = new HomeController();
+        $home->index();
+        break;
+    case '/login':
+        $auth = new LoginController();
+        if ($method === "GET") {
+            $auth->loginPage();
+        } else {
+            $auth->login();
+        }
+        break;
+    case '/register':
+        $auth = new RegisterController();
+        if ($method === "GET") {
+            $auth->registerPage();
+        } else {
+            $auth->register();
+        }
+        break;
+    case '/dashboard':
+        if (!isset($_SESSION['email'])) {
+            header("Location: {$baseFolder}/login");
+            exit;
+        }
+        $home = new HomeController();
+        $home->dashboard();
+        break;
+    case '/admin/users':
+        if (!isset($_SESSION['email'])) {
+            header("Location: {$baseFolder}/login");
+            exit;
+        }
+        $admin = new AdminController();
+        $admin->listUsers();
+        break;
+    case '/admin/users/create':
+        if (!isset($_SESSION['email'])) {
+            header("Location: {$baseFolder}/login");
+            exit;
+        }
+        $admin = new AdminController();
+        if ($method === 'GET') {
+            $admin->showUserForm();
+        } else {
+            $admin->InsertUser();
+        }
+        break;
+    case '/logout':
+        session_destroy();
+        header("Location: {$baseFolder}/login");
+        exit;
+        break;
+    default:
+        http_response_code(404);
+        require __DIR__ . "/../src/Views/errors/404.php";
+        break;
+}

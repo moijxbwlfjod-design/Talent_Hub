@@ -1,48 +1,32 @@
 <?php
 require_once __DIR__ . '/../../Config/Database.php';
 class AdminRepo{
-    private $db = Database::getConnection();
-    private string $role;
-    public function showUser(){
+    private $db;
+    public function __construct(){
+        $conn = new DataBase();
+        $this->db = $conn->getConnection();
+    }
+    public function getAllUsers(){
         $sql = "select u.id,u.full_name,email,phone,r.role from users as u
         inner join roles as r on r.id = u.role_id";
         $stmt = $this->db->prepare($sql);
         // $stmt->bindParam(':role', $role);
         $stmt->execute();
-        $userArr = $stmt->fetchAll(PDO::FETCH_OBJ);
-        return $userArr;
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function deleteUser($id){
-        $sql = "update users set deleted_at = now() where id = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id',$id,PDO::PARAM_INT);
-        $stmt->execute();
-    }
-    public function updateOffer($title,$description,$company_name,$eamil_pro,$city,$category_name,$tag_name){
-        try {
-            $this->db->beginTransaction();
-            $stmt = $this->db->prepare(
-            "UPDATE offers SET title = ?, description = ? WHERE id = ?"
-            );
-            $stmt->execute([$title, $description, $offerId]);
-            $stmt = $this->db->prepare(
-            "UPDATE recruiters SET company_name = ?, email_pro = ?, city = ? WHERE id = ?"
-            );
-            $stmt->execute([$companyName, $emailPro, $city, $recruiterId]);
-            $stmt = $this->db->prepare(
-                "UPDATE categories SET name = ? WHERE id = ?"
-            );
-            $stmt->execute([$categoryName, $categoryId]);
-            $stmt = $this->db->prepare(
-                "UPDATE tags SET name = ? WHERE id = ?"
-            );
-            $stmt->execute([$tagName, $tagId]);
-            $this->db->commit();
-        }catch (PDOException $e) {
-            $this->db->rollBack();
-            throw $e;
+    public function setUser($full_name,$email,$password,$phone,$role){
+        $role_id_query = 'select id from roles where role = ? limit 1';
+        $stmt1 = $this->db->prepare($role_id_query);
+        $stmt1->execute([$role]);
+        $role_id = $stmt1->fetch(PDO::FETCH_ASSOC);
+        if(!$role_id){
+            throw new Exception("Role not found: $role");
         }
-
+        $role_id = $role_id['id'];
+        $sql = 'insert into users (full_name,email,password_hash,phone,role_id) values (?,?,?,?,?)';
+        $stmt2 = $this->db->prepare($sql);
+        $stmt2->execute([$full_name,$email,$password,$phone,$role_id]);
+        return $this->db->lastInsertedId();
     }
-    
 }

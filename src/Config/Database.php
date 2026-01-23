@@ -1,6 +1,6 @@
 <?php 
 use Dotenv\Dotenv; 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 
 class Database {
@@ -9,19 +9,24 @@ class Database {
     private static $conn ; 
     public function __construct()
     {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
         $dotenv->load();
 
 
-         $servername = $_ENV['DB_HOST'];
-         $username = $_ENV['DB_USER'];
-         $password = $_ENV['DB_PASSWORD'];
-         $db_name = $_ENV['DB_NAME'];
-         $port = $_ENV['DB_PORT'];
+        //  $servername = $_ENV['DB_HOST'];
+        //  $username = $_ENV['DB_USER'];
+        //  $password = $_ENV['DB_PASSWORD'];
+        //  $db_name = $_ENV['DB_NAME'];
+        //  $port = $_ENV['DB_PORT'];
+
+         $servername = 'localhost';
+         $username = 'root';
+         $password = '';
+         $db_name = 'talent_hub';
        
          try{
      
-             self::$conn = new PDO("mysql:host=$servername;port=$port;dbname=$db_name" , $username , $password);
+             self::$conn = new PDO("mysql:host=$servername;dbname=$db_name" , $username , $password);
              self::$conn->setAttribute(PDO::ATTR_ERRMODE , PDO::ERRMODE_EXCEPTION);
      
          }catch(PDOException $err){

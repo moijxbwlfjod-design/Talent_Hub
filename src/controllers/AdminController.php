@@ -1,21 +1,32 @@
 <?php
-require_once __DIR__ . '/../Models/repositories/AdminRepo.php';
+require_once __DIR__ . '/../Models/services/AdminService.php';
 class AdminConroller{
-    private $role;
-    private $id;
-    public function view($view, $data){
-        extract($data);
-        require __DIR__ . "/../views/$view.php";
+    public function DisplayUsers(){
+        $service = new AdminService();
+        $user = $service->getAllUsers();
+        require __DIR__ . '/../Views/Dashboards/Admin/manage_user.php';
     }
-    public function show(){
-        $repo=new AdminRepo();
-        $user = $repo->showUser();
-        $this->view("src/Views/dashboards/Admin/manage_user.html", ['users' => $user]);
-    }
-    public function delete(){
-        $cs=new AdminRepo();
-        $cs->showUser($id);
-        include '';
+    public function InsertUser(){
+        if($_SERVER['REQUEST_METHOD']==="POST"){
+            $full_name = $_POST['full_name'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $repassword = $_POST['repassword'];
+            $phone = $_POST['phone'];
+            $role = $_POST['role'];
+            if(!$full_name && !$email && !$password && !$repassword && !$phone && !$role) die('All fields are required');
+            if(!filter_var($email,FILTER_VALIDATE_EMAIL)) die("invalid email format");
+            if($password!=$repassword) die('passwords don\'t match');
+            try{
+                $service = new AdminService();
+                $user = $service->setUser($full_name,$email,$password,$phone,$role);
+                header('Location:/dashboard');
+                exit;
+
+            }catch(Exception $e){
+                die('Error: '.$e->getMessage());
+            }
+
+        }
     }
 }
-$u = new AdminConroller();

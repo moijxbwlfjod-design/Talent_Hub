@@ -2,7 +2,7 @@
 
 class HomeController {
     public function index() {
-        include __DIR__ . '/../../Views/Home.html';
+        include __DIR__ . '/../Views/Home/Home.php';
     }
 
     public function dashboard() {
