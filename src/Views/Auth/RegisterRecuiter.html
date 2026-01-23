@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+    <title>Profile</title>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- NAVBAR -->
+    <nav class="h-[60px] bg-blue-500 flex items-center px-8 text-white">
+        <h1 class="text-xl font-bold">Mon Profil</h1>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="flex justify-center items-center min-h-screen px-4">
+
+        <!-- FORM CARD -->
+        <form id="multiStepForm" class="bg-white p-8 rounded shadow max-w-md mx-auto">
+
+    <!-- STEP 1 -->
+    <div class="step">
+        <h2 class="text-xl font-bold mb-4">Étape 1</h2>
+
+        <input type="text" id="fullName" placeholder="Nom complet"
+            class="w-full mb-4 px-4 py-2 border rounded">
+
+        <input type="file" id="fileToUpload" accept="image/*"
+            class="w-full mb-4">
+
+        <img id="imagePreview"
+            class="h-24 w-24 rounded-full object-cover hidden mb-4">
+
+        <button type="button" onclick="nextStep()"
+            class="w-full bg-blue-500 text-white py-2 rounded">
+            Next
+        </button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step hidden">
+        <h2 class="text-xl font-bold mb-4">Étape 2</h2>
+
+        <input type="email" id="email" placeholder="Email"
+            class="w-full mb-4 px-4 py-2 border rounded">
+
+        <input type="email" id="emailPro" placeholder="Email professionnel"
+            class="w-full mb-4 px-4 py-2 border rounded">
+
+        <button type="button" onclick="nextStep()"
+            class="w-full bg-blue-500 text-white py-2 rounded">
+            Next
+        </button>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step hidden">
+        <h2 class="text-xl font-bold mb-4">Étape 3</h2>
+
+        <input type="tel" id="phone" placeholder="Numéro de téléphone"
+            class="w-full mb-4 px-4 py-2 border rounded">
+
+        <button type="button" onclick="nextStep()"
+            class="w-full bg-blue-500 text-white py-2 rounded">
+            Next
+        </button>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step hidden">
+        <h2 class="text-xl font-bold mb-4">Étape 4</h2>
+
+        <div class="relative mb-4">
+            <input type="password" id="password"
+                placeholder="Mot de passe"
+                class="w-full px-4 py-2 border rounded">
+
+            <i class="fa-solid fa-eye absolute right-3 top-3 cursor-pointer"
+               onclick="togglePassword('password', this)"></i>
+        </div>
+
+        <div class="relative mb-4">
+            <input type="password" id="confirmPassword"
+                placeholder="Confirmer le mot de passe"
+                class="w-full px-4 py-2 border rounded">
+
+            <i class="fa-solid fa-eye absolute right-3 top-3 cursor-pointer"
+               onclick="togglePassword('confirmPassword', this)"></i>
+        </div>
+
+        <button type="submit"
+            class="w-full bg-green-500 text-white py-2 rounded">
+            Submit
+        </button>
+    </div>
+</form>
+<script defer>
+    let currentStep = 0;
+    const steps = document.querySelectorAll(".step");
+
+    function nextStep() {
+        if (currentStep < steps.length - 1) {
+            steps[currentStep].classList.add("hidden");
+            currentStep++;
+            steps[currentStep].classList.remove("hidden");
+        }
+    }
+
+    // IMAGE PREVIEW
+    const fileInput = document.getElementById("fileToUpload");
+    const imagePreview = document.getElementById("imagePreview");
+
+    fileInput.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                imagePreview.src = e.target.result;
+                imagePreview.classList.remove("hidden");
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // SHOW / HIDE PASSWORD
+    function togglePassword(inputId, icon) {
+        const input = document.getElementById(inputId);
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.replace("fa-eye", "fa-eye-slash");
+        } else {
+            input.type = "password";
+            icon.classList.replace("fa-eye-slash", "fa-eye");
+        }
+    }
+</script>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-sm text-gray-500 py-6">
+        © 2026 Mohamed Sehrane
+    </footer>
+
+</body>
+</html>

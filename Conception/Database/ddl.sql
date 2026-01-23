@@ -1,3 +1,4 @@
+create DATABASE talent_hub_test;
 CREATE TABLE roles(
     id INT AUTO_INCREMENT PRIMARY KEY,
     role ENUM('candidat','recruiter','admin') not NULL 
@@ -17,7 +18,7 @@ CREATE Table users (
 );
 CREATE TABLE candidats(
     id INT PRIMARY KEY,
-    curriculum_vitae binary,
+    curriculum_vitae binary
 );
 CREATE TABLE tags(
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -30,9 +31,9 @@ CREATE TABLE condidat_tag(
     candidat_id int NOT NULL,
     tag_id INT NOT NULL,
     Foreign Key (candidat_id) REFERENCES candidats(id),
-    Foreign Key (tag_id) REFERENCES tags(id),
+    Foreign Key (tag_id) REFERENCES tags(id)
 );
-CREATE TABLE categoreis(
+CREATE TABLE categories(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL UNIQUE,
     tag_id INT NOT NULL,
@@ -41,13 +42,20 @@ CREATE TABLE categoreis(
     deleted_at TIMESTAMP NULL,
     Foreign Key (tag_id) REFERENCES tags(id)
 );
+CREATE TABLE recruiters (
+    id INT PRIMARY KEY,
+    company_name VARCHAR(50) NOT NULL,
+    email_pro VARCHAR(100) NOT NULL,
+    city VARCHAR(25) NOT NULL
+);
+
 CREATE TABLE offers(
  id INT PRIMARY KEY AUTO_INCREMENT ,
  title VARCHAR(100) NOT NULL,
  description VARCHAR(255) NOT NULL,
  recuiter_id INT NOT NULL,
  category_id INT NOT NULL,
- FOREIGN KEY (recuiter_id) REFERENCES recuiters(id),
+ FOREIGN KEY (recuiter_id) REFERENCES recruiters(id),
  FOREIGN KEY (category_id) REFERENCES categories(id),
  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
  update_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -65,5 +73,5 @@ CREATE TABLE applications(
  offer_id INT NOT NULL,
  candidate_id INT NOT NULL,
  FOREIGN KEY (offer_id) REFERENCES offers(id),
- FOREIGN KEY (candidate_id) REFERENCES canditate(id)
+ FOREIGN KEY (candidate_id) REFERENCES candidats(id)
 );

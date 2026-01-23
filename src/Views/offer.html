@@ -23,7 +23,7 @@
         <!-- ADD BUTTON -->
         <button onclick="openModal()"
             class="mb-6 bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">
-            ➕ Add New Offer
+            Add New Offer
         </button>
 
         <!-- OFFERS LIST -->
@@ -157,7 +157,7 @@
             tagsContainer.innerHTML = "";
             currentTags.forEach((tag, index) => {
                 tagsContainer.innerHTML += `
-                    <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm flex items-center gap-1">
+                    <span class="bg-d text-blue-600 px-3 py-1 rounded-full text-sm flex items-center gap-1">
                         ${tag}
                         <button onclick="removeTag(${index})">×</button>
                     </span>
