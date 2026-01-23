@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Offers - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-gradient {
+            background: linear-gradient(180deg, #111827 0%, #1f2937 100%);
+        }
+
+        /* Custom Scrollbar for longer lists */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        /* Modal Transitions */
+        .modal {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            transform: scale(0.95);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+
+<body class="bg-[#f8fafc] text-[#1e293b]">
+
+    <!-- SIDEBAR -->
+    <aside
+        class="sidebar-gradient w-72 h-screen fixed left-0 top-0 overflow-y-auto border-r border-slate-800 z-50 transition-all duration-300 hidden md:block">
+        <div class="p-6 border-b border-slate-800">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-500/20">
+                    TH</div>
+                <span class="text-white font-bold text-xl tracking-tight">Talent HUB</span>
+            </div>
+        </div>
+
+        <nav class="p-4 space-y-2">
+            <div>
+                <p class="text-[10px] text-slate-500 font-bold px-4 mb-4 uppercase tracking-[0.2em]">Management</p>
+
+                <a href="admin_dashboard.html"
+                    class="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-400 hover:bg-indigo-400/10 rounded-xl transition-all group text-left border border-transparent">
+                    <i class="fas fa-columns w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+
+                <a href="manage_users.html"
+                    class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-400 hover:bg-indigo-400/10 rounded-xl transition-all group">
+                    <i class="fas fa-users w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">User Accounts</span>
+                </a>
+
+                <a href="manage_companies.html"
+                    class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-400 hover:bg-indigo-400/10 rounded-xl transition-all group">
+                    <i class="fas fa-building w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Companies</span>
+                </a>
+
+                <a href="admin_offers.html"
+                    class="flex items-center gap-3 px-4 py-3 text-indigo-400 bg-indigo-400/10 rounded-xl transition-all group">
+                    <i class="fas fa-briefcase w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Job Offers</span>
+                </a>
+
+                <a href="job_approvals.html"
+                    class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-400 hover:bg-indigo-400/10 rounded-xl transition-all group">
+                    <i class="fas fa-check-circle w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Job Approvals</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="md:ml-72 min-h-screen">
+        <!-- TOPBAR -->
+        <header
+            class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 h-[70px] px-8 flex justify-between items-center">
+            <div>
+                <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Offer Management</h2>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <div
+                    class="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-600 rounded-lg text-xs font-bold border border-emerald-100">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    System Live
+                </div>
+                <button
+                    class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 hover:text-indigo-600 transition-all border border-slate-200 relative">
+                    <i class="fas fa-envelope"></i>
+                    <span
+                        class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] flex items-center justify-center rounded-full font-bold">5</span>
+                </button>
+                <div class="flex items-center gap-3 pl-4 border-l border-slate-200">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-sm font-bold text-slate-900 leading-none">Admin User</p>
+                        <p class="text-[10px] text-slate-500 mt-1 uppercase font-semibold">Super Admin</p>
+                    </div>
+                    <div
+                        class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-bold text-sm shadow-lg">
+                        AU</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="p-8">
+            <!-- PAGE HEADER -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Job Offers</h1>
+                    <p class="text-slate-500 mt-1">Manage, edit, and track all job offers across the platform.</p>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="toggleFilter()"
+                        class="bg-white text-slate-700 px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-slate-50 transition-all border border-slate-200 shadow-sm active:scale-95">
+                        <i class="fas fa-filter"></i>
+                        Filter
+                    </button>
+                    <button onclick="openModal('createJobModal')"
+                        class="bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/20 active:scale-95">
+                        <i class="fas fa-plus"></i>
+                        New Job Offer
+                    </button>
+                </div>
+            </div>
+
+            <!-- FILTER BAR (Hidden by default) -->
+            <div id="filterBar"
+                class="hidden bg-white p-4 rounded-2xl border border-slate-200 shadow-sm mb-6 animate-fade-in-down">
+                <div class="flex flex-wrap gap-4 items-center">
+                    <span class="text-sm font-bold text-slate-700">Status:</span>
+                    <button onclick="filterByStatus('All')"
+                        class="filter-btn px-3 py-1 text-xs font-bold rounded-lg bg-indigo-100 text-indigo-700">All</button>
+                    <button onclick="filterByStatus('Active')"
+                        class="filter-btn px-3 py-1 text-xs font-bold rounded-lg bg-slate-100 text-slate-600 hover:bg-emerald-100 hover:text-emerald-700">Active</button>
+                    <button onclick="filterByStatus('Paused')"
+                        class="filter-btn px-3 py-1 text-xs font-bold rounded-lg bg-slate-100 text-slate-600 hover:bg-amber-100 hover:text-amber-700">Paused</button>
+                    <button onclick="filterByStatus('Draft')"
+                        class="filter-btn px-3 py-1 text-xs font-bold rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-800">Draft</button>
+                </div>
+            </div>
+
+            <!-- STATS CARDS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 text-xl">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <span class="text-emerald-500 text-xs font-bold flex items-center gap-1">
+                            <i class="fas fa-check"></i> <span id="stat-active-label">Live</span>
+                        </span>
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Active Jobs</p>
+                    <p class="text-2xl font-bold text-slate-900" id="stat-active-count">0</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 text-xl">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <span class="text-slate-400 text-xs font-bold flex items-center gap-1" id="stat-closing-label">
+                            Action Req.
+                        </span>
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Paused / Drafts</p>
+                    <p class="text-2xl font-bold text-slate-900" id="stat-paused-count">0</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 text-xl">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <span class="text-emerald-500 text-xs font-bold flex items-center gap-1">
+                            Total Apps
+                        </span>
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Applications</p>
+                    <p class="text-2xl font-bold text-slate-900" id="stat-apps-count">0</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-slate-600 text-xl">
+                            <i class="fas fa-archive"></i>
+                        </div>
+                        <span class="text-slate-400 text-xs font-bold flex items-center gap-1">
+                            System
+                        </span>
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Jobs</p>
+                    <p class="text-2xl font-bold text-slate-900" id="stat-total-count">0</p>
+                </div>
+            </div>
+
+            <!-- OFFERS TABLE -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden min-h-[400px]">
+                <div
+                    class="p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-center bg-slate-50/50 gap-4">
+                    <h2 class="text-lg font-bold text-slate-900">All Job Offers</h2>
+                    <div class="flex gap-2 w-full sm:w-auto">
+                        <div class="relative w-full sm:w-64">
+                            <i
+                                class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input type="text" id="searchInput" placeholder="Search by title, company..."
+                                onkeyup="handleSearch()"
+                                class="w-full pl-9 pr-3 py-2 text-xs bg-white border border-slate-200 rounded-lg outline-none focus:border-indigo-500 transition-all">
+                        </div>
+                        <button onclick="handleSearch()"
+                            class="px-3 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-700 transition-all">Search</button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr
+                                class="text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 bg-white">
+                                <th class="p-4">Job Title</th>
+                                <th class="p-4">Company</th>
+                                <th class="p-4">Posted Date</th>
+                                <th class="p-4">Applications</th>
+                                <th class="p-4 text-center">Status</th>
+                                <th class="p-4 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="offersTableBody" class="divide-y divide-slate-100">
+                            <!-- JS will populate this -->
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <div class="p-4 border-t border-slate-100 flex items-center justify-between" id="paginationControls">
+                    <span class="text-xs text-slate-500 font-medium">Showing <span class="font-bold text-slate-900"
+                            id="pageInfoStart">0</span>-<span class="font-bold text-slate-900" id="pageInfoEnd">0</span>
+                        of <span class="font-bold text-slate-900" id="pageInfoTotal">0</span></span>
+                    <div class="flex gap-2">
+                        <button onclick="changePage(-1)"
+                            class="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-500 hover:bg-slate-50 transition-all">Prev</button>
+                        <button
+                            class="px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-bold shadow-lg shadow-indigo-500/20"
+                            id="currentPageDisplay">1</button>
+                        <button onclick="changePage(1)"
+                            class="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-500 hover:bg-slate-50 transition-all">Next</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- MODALS -->
+
+    <!-- Create/Edit Job Modal -->
+    <div id="createJobModal"
+        class="modal fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+        <div class="modal-content bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 class="text-lg font-bold text-slate-900" id="modalTitle">Create New Job Offer</h3>
+                <button onclick="closeModal('createJobModal')"
+                    class="text-slate-400 hover:text-slate-600 transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Job Title</label>
+                    <input type="text" id="jobTitleInput"
+                        class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:border-indigo-500 outline-none transition-all text-sm"
+                        placeholder="e.g. Senior Product Designer">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Company</label>
+                    <input type="text" id="companyInput"
+                        class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:border-indigo-500 outline-none transition-all text-sm"
+                        placeholder="e.g. Acme Corp">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Type</label>
+                        <select id="typeInput"
+                            class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:border-indigo-500 outline-none transition-all text-sm">
+                            <option value="Remote">Remote</option>
+                            <option value="On-site">On-site</option>
+                            <option value="Hybrid">Hybrid</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Status</label>
+                        <select id="statusInput"
+                            class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:border-indigo-500 outline-none transition-all text-sm">
+                            <option value="Active">Active</option>
+                            <option value="Paused">Paused</option>
+                            <option value="Draft">Draft</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Description (Short)</label>
+                    <textarea id="descInput" rows="3"
+                        class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:border-indigo-500 outline-none transition-all text-sm"
+                        placeholder="Brief description..."></textarea>
+                </div>
+            </div>
+            <div class="p-6 border-t border-slate-100 flex justify-end gap-3 bg-slate-50">
+                <button onclick="closeModal('createJobModal')"
+                    class="px-4 py-2 text-sm font-bold text-slate-500 hover:text-slate-700 hover:bg-slate-200 rounded-xl transition-all">Cancel</button>
+                <button onclick="saveJob()"
+                    class="px-5 py-2 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-lg shadow-indigo-500/20 transition-all">Save
+                    Offer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Job Details Modal -->
+    <div id="viewJobModal"
+        class="modal fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+        <div class="modal-content bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden relative">
+            <div class="h-24 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+            <div class="px-6 relative">
+                <div class="w-16 h-16 bg-white rounded-xl shadow-md border-2 border-white absolute -top-8 flex items-center justify-center text-2xl text-indigo-600"
+                    id="viewJobIcon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="mt-10 mb-6">
+                    <h3 class="text-xl font-bold text-slate-900" id="viewJobTitle">Job Title</h3>
+                    <p class="text-slate-500 font-medium text-sm" id="viewJobCompany">Company • Location</p>
+
+                    <div class="mt-4 flex flex-wrap gap-2" id="viewJobTags">
+                        <!-- Tags injected by JS -->
+                    </div>
+
+                    <div class="mt-6 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                        <h4 class="text-xs font-bold text-slate-900 uppercase mb-2">Details</h4>
+                        <div class="space-y-2 text-sm text-slate-600">
+                            <div class="flex justify-between">
+                                <span>Status:</span>
+                                <span class="font-bold text-slate-900" id="viewJobStatus">Active</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Applicants:</span>
+                                <span class="font-bold text-slate-900" id="viewJobApps">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Posted:</span>
+                                <span class="font-bold text-slate-900" id="viewJobDate">Date</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pb-6">
+                    <button onclick="closeModal('viewJobModal')"
+                        class="w-full block text-center px-4 py-2.5 text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-xl transition-all">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal"
+        class="modal fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+        <div class="modal-content bg-white p-6 rounded-2xl shadow-2xl max-w-sm w-full text-center">
+            <div
+                class="w-12 h-12 rounded-full bg-red-100 text-red-500 flex items-center justify-center mx-auto mb-4 text-xl">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Delete Job Offer?</h3>
+            <p class="text-slate-500 text-sm mb-6">This action cannot be undone. Are you sure you want to remove this
+                job offer from the system?</p>
+            <div class="flex gap-3 justify-center">
+                <button onclick="closeModal('deleteModal')"
+                    class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition-all">Cancel</button>
+                <button onclick="confirmDelete()"
+                    class="px-5 py-2.5 rounded-xl bg-red-500 text-white font-bold text-sm hover:bg-red-600 shadow-lg shadow-red-500/20 transition-all">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA STATE ---
+        let jobs = [
+            { id: 1, title: 'Senior React Developer', company: 'TechCorp Inc.', location: 'Remote', type: 'Full-time', date: '2023-10-24', applicants: 12, status: 'Active', icon: 'fab fa-react', color: 'indigo' },
+            { id: 2, title: 'Backend Engineer', company: 'FinTech Sol.', location: 'New York', type: 'Hybrid', date: '2023-10-22', applicants: 5, status: 'Paused', icon: 'fab fa-node-js', color: 'amber' },
+            { id: 3, title: 'UX/UI Designer', company: 'Creative Agency', location: 'London', type: 'On-site', date: '2023-09-15', applicants: 0, status: 'Draft', icon: 'fas fa-paint-brush', color: 'blue' },
+            { id: 4, title: 'Product Manager', company: 'StartUp Hub', location: 'San Francisco', type: 'Remote', date: '2023-11-01', applicants: 45, status: 'Active', icon: 'fas fa-tasks', color: 'purple' },
+            { id: 5, title: 'DevOps Engineer', company: 'Cloud Systems', location: 'Berlin', type: 'Hybrid', date: '2023-10-30', applicants: 8, status: 'Active', icon: 'fas fa-server', color: 'emerald' },
+            { id: 6, title: 'Marketing Specialist', company: 'Growth Hackers', location: 'Remote', type: 'Contract', date: '2023-10-10', applicants: 22, status: 'Active', icon: 'fas fa-bullhorn', color: 'rose' },
+            { id: 7, title: 'Data Scientist', company: 'Data Minds', location: 'Toronto', type: 'On-site', date: '2023-11-05', applicants: 15, status: 'Paused', icon: 'fas fa-chart-bar', color: 'cyan' },
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 5;
+        let currentFilterStatus = 'All';
+        let deleteTargetId = null;
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTable();
+            updateStats();
+        });
+
+        // --- RENDER FUNCTIONS ---
+        function renderTable() {
+            const tbody = document.getElementById('offersTableBody');
+            tbody.innerHTML = '';
+
+            // Filter data
+            let filteredJobs = jobs.filter(job => {
+                const search = document.getElementById('searchInput').value.toLowerCase();
+                const matchesSearch = job.title.toLowerCase().includes(search) || job.company.toLowerCase().includes(search);
+                const matchesStatus = currentFilterStatus === 'All' || job.status === currentFilterStatus;
+                return matchesSearch && matchesStatus;
+            });
+
+            // Pagination logic
+            const totalItems = filteredJobs.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+            // Adjust current page if out of bounds
+            if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const displayedJobs = filteredJobs.slice(startIndex, endIndex);
+
+            // Populate Table
+            if (displayedJobs.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400 font-medium">No job offers found.</td></tr>`;
+            } else {
+                displayedJobs.forEach(job => {
+                    const row = document.createElement('tr');
+                    row.className = 'hover:bg-slate-50/80 transition-all text-sm group border-b border-slate-50 last:border-0';
+                    row.innerHTML = `
+                        <td class="p-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-${job.color}-100/50 rounded-lg flex items-center justify-center text-${job.color}-600 font-bold text-lg">
+                                    <i class="${job.icon}"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">${job.title}</p>
+                                    <p class="text-xs text-slate-500 font-medium">${job.location} • ${job.type}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="p-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-6 h-6 bg-slate-200 rounded-full flex items-center justify-center text-[10px] font-bold text-slate-600">
+                                    ${job.company.charAt(0)}
+                                </div>
+                                <span class="font-semibold text-slate-700 text-xs">${job.company}</span>
+                            </div>
+                        </td>
+                        <td class="p-4 text-slate-500 font-medium text-xs">${formatDate(job.date)}</td>
+                        <td class="p-4">
+                            ${renderApplicantsAvatars(job.applicants)}
+                        </td>
+                        <td class="p-4 text-center">
+                            <span class="cursor-pointer ${getStatusBadgeClass(job.status)}" onclick="toggleStatus(${job.id})">${job.status}</span>
+                        </td>
+                        <td class="p-4 text-right">
+                            <button onclick="viewJob(${job.id})" class="w-8 h-8 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all"><i class="fas fa-eye"></i></button>
+                            <button onclick="askDelete(${job.id})" class="w-8 h-8 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all"><i class="fas fa-trash"></i></button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+
+            // Update Pagination Controls
+            document.getElementById('pageInfoStart').innerText = totalItems === 0 ? 0 : startIndex + 1;
+            document.getElementById('pageInfoEnd').innerText = Math.min(endIndex, totalItems);
+            document.getElementById('pageInfoTotal').innerText = totalItems;
+            document.getElementById('currentPageDisplay').innerText = currentPage;
+        }
+
+        function updateStats() {
+            const active = jobs.filter(j => j.status === 'Active').length;
+            const paused = jobs.filter(j => j.status === 'Paused' || j.status === 'Draft').length;
+            const total = jobs.length;
+            const totalApps = jobs.reduce((sum, job) => sum + job.applicants, 0);
+
+            animateValue('stat-active-count', parseInt(document.getElementById('stat-active-count').innerText), active, 500);
+            animateValue('stat-paused-count', parseInt(document.getElementById('stat-paused-count').innerText), paused, 500);
+            animateValue('stat-apps-count', parseInt(document.getElementById('stat-apps-count').innerText), totalApps, 500);
+            animateValue('stat-total-count', parseInt(document.getElementById('stat-total-count').innerText), total, 500);
+        }
+
+        // --- ACTIONS ---
+
+        function handleSearch() {
+            currentPage = 1;
+            renderTable();
+        }
+
+        function filterByStatus(status) {
+            currentFilterStatus = status;
+            // Update UI for buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.innerText === status) {
+                    btn.classList.add('bg-indigo-100', 'text-indigo-700');
+                    btn.classList.remove('bg-slate-100', 'text-slate-600');
+                } else {
+                    btn.classList.remove('bg-indigo-100', 'text-indigo-700');
+                    btn.classList.add('bg-slate-100', 'text-slate-600');
+                }
+            });
+            renderTable();
+        }
+
+        function toggleFilter() {
+            const bar = document.getElementById('filterBar');
+            bar.classList.toggle('hidden');
+        }
+
+        function changePage(delta) {
+            currentPage += delta;
+            renderTable(); // renderTable handles boundary checks
+        }
+
+        // --- MODAL & CRUD ---
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            if (modalId === 'createJobModal') {
+                // reset form
+                document.getElementById('jobTitleInput').value = '';
+                document.getElementById('companyInput').value = '';
+                document.getElementById('descInput').value = '';
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function saveJob() {
+            const title = document.getElementById('jobTitleInput').value;
+            const company = document.getElementById('companyInput').value;
+            const type = document.getElementById('typeInput').value;
+            const status = document.getElementById('statusInput').value;
+
+            if (!title || !company) {
+                alert('Please fill in required fields');
+                return;
+            }
+
+            const newJob = {
+                id: Date.now(), // simple unique id
+                title: title,
+                company: company,
+                location: 'Remote', // Simplified for demo
+                type: type,
+                date: new Date().toISOString().split('T')[0],
+                applicants: 0,
+                status: status,
+                icon: 'fas fa-briefcase', // default icon
+                color: 'indigo' // default color
+            };
+
+            jobs.unshift(newJob); // Add to top
+            closeModal('createJobModal');
+            renderTable();
+            updateStats();
+        }
+
+        function viewJob(id) {
+            const job = jobs.find(j => j.id === id);
+            if (!job) return;
+
+            document.getElementById('viewJobTitle').innerText = job.title;
+            document.getElementById('viewJobCompany').innerText = `${job.company} • ${job.location} • ${job.type}`;
+            document.getElementById('viewJobStatus').innerText = job.status;
+            document.getElementById('viewJobApps').innerText = job.applicants;
+            document.getElementById('viewJobDate').innerText = job.date;
+
+            // Set icon
+            const iconDiv = document.getElementById('viewJobIcon');
+            iconDiv.innerHTML = `<i class="${job.icon}"></i>`;
+
+            // Tags
+            const tagsContainer = document.getElementById('viewJobTags');
+            tagsContainer.innerHTML = `
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-md">${job.type}</span>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-md">${job.location}</span>
+            `;
+
+            openModal('viewJobModal');
+        }
+
+        function askDelete(id) {
+            deleteTargetId = id;
+            openModal('deleteModal');
+        }
+
+        function confirmDelete() {
+            if (deleteTargetId) {
+                jobs = jobs.filter(j => j.id !== deleteTargetId);
+                deleteTargetId = null;
+                closeModal('deleteModal');
+                renderTable();
+                updateStats();
+            }
+        }
+
+        function toggleStatus(id) {
+            const job = jobs.find(j => j.id === id);
+            if (job) {
+                if (job.status === 'Active') job.status = 'Paused';
+                else if (job.status === 'Paused') job.status = 'Active';
+                else if (job.status === 'Draft') job.status = 'Active';
+                renderTable();
+                updateStats();
+            }
+        }
+
+        // --- HELPERS ---
+
+        function getStatusBadgeClass(status) {
+            if (status === 'Active') return 'px-2 py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-bold rounded-full uppercase tracking-tighter hover:bg-emerald-200 transition-colors';
+            if (status === 'Paused') return 'px-2 py-0.5 bg-amber-100 text-amber-700 text-[10px] font-bold rounded-full uppercase tracking-tighter hover:bg-amber-200 transition-colors';
+            return 'px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-full uppercase tracking-tighter hover:bg-slate-200 transition-colors';
+        }
+
+        function renderApplicantsAvatars(count) {
+            if (count === 0) return '<span class="text-xs text-slate-400">0 applicants</span>';
+
+            let html = '<div class="flex -space-x-2">';
+            // Show up to 3 avatars visually
+            for (let i = 0; i < Math.min(count, 3); i++) {
+                html += `<div class="w-7 h-7 rounded-full border-2 border-white bg-slate-${300 + (i * 100)}"></div>`;
+            }
+            if (count > 3) {
+                html += `<div class="w-7 h-7 rounded-full border-2 border-white bg-indigo-100 flex items-center justify-center text-[10px] text-indigo-600 font-bold">+${count - 3}</div>`;
+            }
+            html += '</div>';
+            return html;
+        }
+
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        function animateValue(id, start, end, duration) {
+            if (start === end) return;
+            const obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+    </script>
+</body>
+
+</html>

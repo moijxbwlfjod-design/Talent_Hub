@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Jobs - Recruiter Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-gradient {
+            background: linear-gradient(180deg, #0a1929 0%, #0f2644 100%);
+        }
+
+        .modal {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            transform: scale(0.95);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+
+<body class="bg-[#f5f7fa] text-[#1a2332]">
+
+    <aside
+        class="sidebar-gradient w-72 h-screen fixed left-0 top-0 overflow-y-auto border-r border-white/10 z-50 transition-all duration-300 hidden md:block">
+        <div class="p-6 border-b border-white/10">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-[#0052cc] rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/20">
+                    TH</div>
+                <span class="text-white font-bold text-xl tracking-tight">Talent HUB</span>
+            </div>
+        </div>
+        <nav class="p-4 space-y-2">
+            <div>
+                <p class="text-[10px] text-slate-500 font-bold px-4 mb-4 uppercase tracking-[0.2em]">Main Menu</p>
+                <a href="Recruiter_dashboard.html"
+                    class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all group">
+                    <i class="fas fa-chart-line w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a href="manage_jobs.html"
+                    class="flex items-center gap-3 px-4 py-3 text-blue-500 bg-blue-500/10 rounded-xl transition-all group">
+                    <i class="fas fa-briefcase w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Jobs Posted</span>
+                </a>
+                <a href="manage_applications.html"
+                    class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all group">
+                    <i class="fas fa-file-alt w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Applications</span>
+                </a>
+                <a href="manage_candidates.html"
+                    class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all group">
+                    <i class="fas fa-users w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Candidates</span>
+                </a>
+            </div>
+            <div class="pt-6">
+                <p class="text-[10px] text-slate-500 font-bold px-4 mb-4 uppercase tracking-[0.2em]">Settings</p>
+                <a href="../settings.html"
+                    class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all group">
+                    <i class="fas fa-cog w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Settings</span>
+                </a>
+                <a href="../notifications.html"
+                    class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all group">
+                    <i class="fas fa-bell w-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Notifications</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="md:ml-72 min-h-screen">
+        <header
+            class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 h-[70px] px-8 flex justify-between items-center">
+            <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Job Management</h2>
+            <div class="flex items-center gap-4">
+                <div
+                    class="w-10 h-10 rounded-full bg-gradient-to-br from-[#0052cc] to-[#0066ff] flex items-center justify-center text-white font-bold text-sm shadow-md">
+                    JD</div>
+            </div>
+        </header>
+
+        <div class="p-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-[#1a2332] tracking-tight">Posted Jobs</h1>
+                    <p class="text-slate-500 mt-1">Manage your job listings and view performance.</p>
+                </div>
+                <button onclick="openModal('postJobModal')"
+                    class="bg-[#0052cc] text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-[#0043a8] transition-all transform hover:-translate-y-1 shadow-lg shadow-blue-500/20 active:scale-95">
+                    <i class="fas fa-plus"></i> Post New Job
+                </button>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden min-h-[400px]">
+                <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                    <div class="flex gap-2">
+                        <button onclick="filterStatus('All')"
+                            class="filter-btn px-3 py-1.5 bg-blue-100 text-blue-700 text-xs font-bold rounded-lg transition-all">All</button>
+                        <button onclick="filterStatus('Active')"
+                            class="filter-btn px-3 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 text-xs font-bold rounded-lg transition-all">Active</button>
+                        <button onclick="filterStatus('Closed')"
+                            class="filter-btn px-3 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 text-xs font-bold rounded-lg transition-all">Closed</button>
+                    </div>
+                    <div class="relative w-64">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="searchInput" onkeyup="renderTable()" placeholder="Search jobs..."
+                            class="w-full pl-9 pr-3 py-2 text-xs bg-white border border-slate-200 rounded-lg outline-none focus:border-blue-500">
+                    </div>
+                </div>
+                <table class="w-full text-left border-collapse">
+                    <thead
+                        class="bg-white border-b border-slate-100 text-slate-400 text-[10px] font-bold uppercase tracking-wider">
+                        <tr>
+                            <th class="p-4">Job Title</th>
+                            <th class="p-4">Location</th>
+                            <th class="p-4">Applicants</th>
+                            <th class="p-4 text-center">Status</th>
+                            <th class="p-4 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="jobsTableBody" class="divide-y divide-slate-100 text-sm">
+                        <!-- JS populated -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Post Job Modal -->
+    <div id="postJobModal"
+        class="modal fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+        <div class="modal-content bg-white rounded-2xl w-full max-w-2xl p-8 shadow-2xl overflow-y-auto max-h-[90vh]">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-slate-900">Post a New Job</h3>
+                <button onclick="closeModal('postJobModal')" class="text-slate-400 hover:text-slate-600"><i
+                        class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Job Title</label>
+                    <input type="text" id="newJobTitle"
+                        class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-500"
+                        placeholder="e.g. Senior Product Designer">
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Location</label>
+                        <input type="text" id="newJobLocation"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-500"
+                            placeholder="e.g. Remote">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Status</label>
+                        <select id="newJobStatus"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-500">
+                            <option value="Active">Active</option>
+                            <option value="Draft">Draft</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="addJob()"
+                    class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-500/20">Publish
+                    Job</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let jobs = [
+            { id: 1, title: 'Senior Frontend Developer', location: 'Remote', applicants: 42, status: 'Active' },
+            { id: 2, title: 'Product Designer', location: 'New York (Hybrid)', applicants: 28, status: 'Active' },
+            { id: 3, title: 'Marketing Manager', location: 'London', applicants: 15, status: 'Closed' },
+            { id: 4, title: 'Backend Engineer', location: 'Remote', applicants: 5, status: 'Active' }
+        ];
+        let currentFilter = 'All';
+
+        document.addEventListener('DOMContentLoaded', renderTable);
+
+        function renderTable() {
+            const tbody = document.getElementById('jobsTableBody');
+            tbody.innerHTML = '';
+            const search = document.getElementById('searchInput').value.toLowerCase();
+
+            jobs.filter(j => {
+                const matchesFilter = currentFilter === 'All' || j.status === currentFilter;
+                const matchesSearch = j.title.toLowerCase().includes(search);
+                return matchesFilter && matchesSearch;
+            }).forEach(j => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition-all group';
+                tr.innerHTML = `
+                    <td class="p-4 font-bold text-slate-900 group-hover:text-blue-600 transition-colors">${j.title}</td>
+                    <td class="p-4 text-slate-500 font-medium">${j.location}</td>
+                    <td class="p-4">
+                        <div class="flex items-center gap-2">
+                             <div class="flex -space-x-2">
+                                <div class="w-6 h-6 rounded-full bg-slate-200 border border-white"></div>
+                                <div class="w-6 h-6 rounded-full bg-slate-300 border border-white"></div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-600">${j.applicants} Applicants</span>
+                        </div>
+                    </td>
+                    <td class="p-4 text-center">
+                        <span onclick="toggleStatus(${j.id})" class="cursor-pointer px-2.5 py-1 text-[10px] font-bold rounded-lg uppercase ${getStatusClass(j.status)}">${j.status}</span>
+                    </td>
+                    <td class="p-4 text-right">
+                        <button class="text-slate-400 hover:text-blue-600 mx-1"><i class="fas fa-edit"></i></button>
+                        <button onclick="deleteJob(${j.id})" class="text-slate-400 hover:text-rose-600 mx-1"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterStatus(status) {
+            currentFilter = status;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.innerText === status) {
+                    btn.className = 'filter-btn px-3 py-1.5 bg-blue-100 text-blue-700 text-xs font-bold rounded-lg transition-all';
+                } else {
+                    btn.className = 'filter-btn px-3 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 text-xs font-bold rounded-lg transition-all';
+                }
+            });
+            renderTable();
+        }
+
+        function toggleStatus(id) {
+            const job = jobs.find(j => j.id === id);
+            if (job) {
+                job.status = job.status === 'Active' ? 'Closed' : 'Active';
+                renderTable();
+            }
+        }
+
+        function deleteJob(id) {
+            if (confirm('Delete this job?')) {
+                jobs = jobs.filter(j => j.id !== id);
+                renderTable();
+            }
+        }
+
+        function addJob() {
+            const title = document.getElementById('newJobTitle').value;
+            const loc = document.getElementById('newJobLocation').value;
+            const status = document.getElementById('newJobStatus').value;
+            if (title && loc) {
+                jobs.unshift({ id: Date.now(), title, location: loc, applicants: 0, status });
+                renderTable();
+                closeModal('postJobModal');
+                document.getElementById('newJobTitle').value = '';
+                document.getElementById('newJobLocation').value = '';
+            }
+        }
+
+        function getStatusClass(s) {
+            return s === 'Active' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-500';
+        }
+
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    </script>
+</body>
+
+</html>
