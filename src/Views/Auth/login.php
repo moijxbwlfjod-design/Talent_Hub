@@ -64,7 +64,7 @@
         <p class="text-gray-600 text-sm">Sign in to your account</p>
       </div>
 
-      <form class="space-y-5" action="./login" method="post">
+      <form class="space-y-5" action="../../controllers/LoginController.php" method="post">
       
         <div>
           <label class="block text-sm font-semibold text-gray-700 mb-2">
