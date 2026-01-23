@@ -25,4 +25,17 @@ class RecruterRepo{
             return false;
         }
     }
+
+    public function DisplayRecruiters(){
+        try{
+            $sql = "SELECT * FROM recuiters";
+            $stm = $this->conn->query($sql);
+            $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(Exception){
+            return false;
+        }
+    }
+
+    public function insertOffer(){}
 }
