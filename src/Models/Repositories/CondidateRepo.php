@@ -67,11 +67,11 @@ class CondidateRepo
          $userId = $this->insertUser($condidate);
          $query = "INSERT INTO condidats (id , cv_path) VALUES (:id  ,:cv_path)";
          $stmt = $this->conn->prepare($query);
-        return $stmt->execute([
-            ":id" => $userId,
-            ":cv_path" => $condidate->getResume()
-         ]);
          $this->conn->commit();
+         return $stmt->execute([
+             ":id" => $userId,
+             ":cv_path" => $condidate->getResume()
+          ]);
       } catch (PDOException $e) {
          $this->conn->rollBack();
          return $e->getMessage();

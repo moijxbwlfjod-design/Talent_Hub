@@ -18,6 +18,7 @@ CREATE Table users (
 CREATE TABLE candidats(
     id INT PRIMARY KEY,
     curriculum_vitae binary,
+    FOREIGN KEY (id) REFERENCES users(id)
 );
 CREATE TABLE tags(
     id INT PRIMARY KEY AUTO_INCREMENT,
