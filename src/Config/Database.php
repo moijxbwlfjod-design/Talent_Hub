@@ -1,7 +1,9 @@
 <?php 
+namespace App\Config ;
+require __DIR__ . '/../../vendor/autoload.php';
 use Dotenv\Dotenv; 
-require __DIR__ . '/../vendor/autoload.php';
-
+use PDO ;
+use PDOException;
 
 class Database {
     
@@ -9,7 +11,7 @@ class Database {
     private static $conn ; 
     public function __construct()
     {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
         $dotenv->load();
 
 
@@ -17,11 +19,10 @@ class Database {
          $username = $_ENV['DB_USER'];
          $password = $_ENV['DB_PASSWORD'];
          $db_name = $_ENV['DB_NAME'];
-         $port = $_ENV['DB_PORT'];
        
          try{
      
-             self::$conn = new PDO("mysql:host=$servername;port=$port;dbname=$db_name" , $username , $password);
+             self::$conn = new PDO("mysql:host=$servername;dbname=$db_name" , $username , $password);
              self::$conn->setAttribute(PDO::ATTR_ERRMODE , PDO::ERRMODE_EXCEPTION);
      
          }catch(PDOException $err){
