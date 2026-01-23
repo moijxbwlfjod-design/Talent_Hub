@@ -4,9 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 require_once __DIR__ . '/../../vendor/autoload.php';
-// var_dump(file_exists(__DIR__ . '/../vendor/autoload.php'));
-// die();
-var_dump(class_exists(\App\Models\Services\CondidateService::class));
+
 
 
 
@@ -23,6 +21,7 @@ class CondidateController
     public function condidateRegister()
     {
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $full_name = $_POST['full_name'];
         $email =  $_POST['email'];
@@ -31,19 +30,14 @@ class CondidateController
         $confirm_password = $_POST['confirm_password'];
         $resume =  $_FILES['resume'];
         $image = $_FILES['image'];
-        var_dump($_FILES);
-        var_dump($_POST);
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // if (
             //     empty($full_name) ||
             //     empty($_email) ||
             //     empty($phone_number) ||
             //     empty($password) ||
-            //     empty($confirm_password) ||
-            //     empty($resume) ||
-            //     empty($image)
+            //     empty($confirm_password)
 
             // ) {
             //     die("all fieldes require");
@@ -59,8 +53,15 @@ class CondidateController
 
    
             $condidateService = new CondidateService();
-            $condidateService->register($full_name, $email, $phone_number, $password, $resume, $image);
+            $user = $condidateService->register($full_name, $email, $phone_number, $password, $resume, $image);
+
+           if($user){
+               header("Location: /../../TanlentHub/src/Views/Auth/login.php");
+               }else{
+               echo "register Failed";
+           }
         }
+       
     }
 }
 
