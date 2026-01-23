@@ -1,0 +1,6 @@
+RewriteEngine On
+
+# If the request is not already for /public, redirect to /public
+# Redirect all requests to /public if not already there
+RewriteCond %{REQUEST_URI} !^/Talent_Hub/public/
+RewriteRule ^(.*)$ public/$1 [L]

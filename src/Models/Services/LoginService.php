@@ -1,40 +1,34 @@
 <?php
-
 namespace App\Models\Services;
 
 use App\Models\Repositories\LoginRepo;
 
 class LoginService
 {
-
     public function login($email, $password)
     {
-
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            die("invalid Email adresse");
+            die("Invalid email address");
         }
-
-
 
         $loginRepo = new LoginRepo();
-        $isUserExist = $loginRepo->getUserByEmail($email);
+        $user = $loginRepo->getUserByEmail($email);
 
-        if (!$isUserExist) {
-           die("Email or Password Incorrect");
+        if (!$user) {
+            die("Email or password incorrect");
         }
-        $userId = $isUserExist->getId();
-        /// get role name 
-        $roleName = $loginRepo->getRoleName($userId);
-        $password = password_verify($password, $isUserExist->getPassword());
-        
-        var_dump($roleName);
-        if ($password) {
-            $_SESSION['user_id'] = $isUserExist->getId();
-            $_SESSION['user_name'] = $isUserExist->getName();
+
+        $roleName = $loginRepo->getRoleName($user->getId());
+
+        if (password_verify($password, $user->getPassword())) {
+            // store session
+            $_SESSION['user_id'] = $user->getId();
+            $_SESSION['user_name'] = $user->getName();
             $_SESSION['user_role'] = $roleName;
-           return true ;
-        }else{
-            return false ; 
+
+            return $user;  // return user object
+        } else {
+            return false;
         }
     }
 }

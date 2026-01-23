@@ -17,31 +17,35 @@ use App\Models\Services\CondidateService;
 class CondidateController
 {
 
-
+    public function registerPage(){
+        include __DIR__ . "/../Views/Auth/condidate_Register.html";
+    }
     public function condidateRegister()
     {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $full_name = $_POST['full_name'];
         $email =  $_POST['email'];
-        $phone_number = $_POST['phone_number'];
-        $password = $_POST['password'];
-        $confirm_password = $_POST['confirm_password'];
-        $resume =  $_FILES['resume'];
-        $image = $_FILES['image'];
+        $full_name = $_POST['full_name'] ?? '';
+        $phone_number = $_POST['phone_number'] ?? '';
+        $password = $_POST['password'] ?? '';
+        $confirm_password = $_POST['confirm_password'] ?? '';
+        $resume = $_FILES['resume'] ?? null;
+        $image = $_FILES['image'] ?? null;
 
 
-            // if (
-            //     empty($full_name) ||
-            //     empty($_email) ||
-            //     empty($phone_number) ||
-            //     empty($password) ||
-            //     empty($confirm_password)
 
-            // ) {
-            //     die("all fieldes require");
-            // }
+
+            if (
+                empty($full_name) ||
+                empty($email) ||
+                empty($phone_number) ||
+                empty($password) ||
+                empty($confirm_password)
+
+            ) {
+                die("all fieldes require");
+            }
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 die("Email invalid");
@@ -56,7 +60,7 @@ class CondidateController
             $user = $condidateService->register($full_name, $email, $phone_number, $password, $resume, $image);
 
            if($user){
-               header("Location: /../../TanlentHub/src/Views/Auth/login.php");
+               header("Location: /Talent_Hub/public/dashboard");
                }else{
                echo "register Failed";
            }

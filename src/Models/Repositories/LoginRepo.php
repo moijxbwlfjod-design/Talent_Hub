@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\Repositories;
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use App\Config\Database;
 use PDO;

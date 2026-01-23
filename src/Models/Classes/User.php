@@ -1,22 +1,27 @@
 <?php
+
+namespace App\Models\Classes;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 class User
 {
+    
     private $id;
-    private $name;
+    private $full_name;
 
     private $email;
     private $password;
 
     private $phone;
-    private string $image;
+    private ?string $image;
 
     private $role_id;
 
 
-    public function __construct($id, $name, $email, $password, $phone, $image, $role_id)
+    public function __construct($id, $full_name, $email, $password, $phone, $image, $role_id)
     {
         $this->id = $id;
-        $this->name = $name;
+        $this->full_name = $full_name;
         $this->email = $email;
         $this->password = $password;
         $this->phone = $phone;
@@ -32,7 +37,7 @@ class User
 
     public function getName()
     {
-        return $this->name;
+        return $this->full_name;
     }
 
     public function getEmail()
@@ -63,7 +68,7 @@ class User
 
     public function setName(string $name)
     {
-        $this->name = $name;
+        $this->full_name = $name;
     }
 
     public function setEmail(string $email)

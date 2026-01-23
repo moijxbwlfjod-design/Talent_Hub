@@ -15,10 +15,16 @@ class Database {
         $dotenv->load();
 
 
-         $servername = $_ENV['DB_HOST'];
-         $username = $_ENV['DB_USER'];
-         $password = $_ENV['DB_PASSWORD'];
-         $db_name = $_ENV['DB_NAME'];
+        //  $servername = $_ENV['DB_HOST'];
+        //  $username = $_ENV['DB_USER'];
+        //  $password = $_ENV['DB_PASSWORD'];
+        //  $db_name = $_ENV['DB_NAME'];
+        //  $port = $_ENV['DB_PORT'];
+
+         $servername = 'localhost';
+         $username = 'root';
+         $password = '';
+         $db_name = 'talent_hub';
        
          try{
      
